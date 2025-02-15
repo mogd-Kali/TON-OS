@@ -4,7 +4,7 @@
 show_menu() {
     clear
     echo "####################################"
-    echo "#         TON OS (Простая)         #"
+    echo "#         TON OS (pro)             #"
     echo "####################################"
     echo "1. Показать текущую дату"
     echo "2. Показать список файлов в директории"
@@ -16,8 +16,9 @@ show_menu() {
     echo "8. Просмотреть содержимое keyostonos.md"
     echo "9. Вывести дерево файлов"
     echo "10. Скачать файл (wget)"
-    echo "11. Командная строка"
-    echo "12. Выйти"
+    echo "11. Перейти на сайт TON OS"
+    echo "12. Командная строка"
+    echo "13. Выйти"
     echo "------------------------------------"
     echo "Введите номер опции:"
 }
@@ -48,10 +49,7 @@ run_calculator() {
     read -p "Введите выражение (например, 2+2): " expression
 
     # Проверка на безопасность, чтобы избежать выполнения произвольных команд
-    if [[ ! "$expression" =~ ^[0-9+\-*/(). ]+$ ]]; then
-        echo "Недопустимые символы в выражении."
-        return
-    fi
+  
 
     # Выполнение вычисления с помощью bc
     result=$(echo "$expression" | bc -l)
@@ -234,6 +232,13 @@ run_command_line() {
     done
 }
 
+# Функция для перехода на сайт TON OS
+goto_ton_os() {
+    echo "Переход на сайт TON OS (ton-os.tiiny.site)..."
+    echo "Вы будете перенаправлены в ваш веб-браузер."
+    xdg-open "ton-os.tiiny.site" & 
+}
+
 # Основной цикл программы
 while true; do
     show_menu
@@ -271,9 +276,12 @@ while true; do
             download_file
             ;;
         11)
-            run_command_line
+   goto_ton_os
             ;;
         12)
+            run_command_line
+            ;;
+        13)
             echo "Завершение работы..."
             break
             ;;
